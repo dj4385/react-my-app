@@ -42,9 +42,9 @@ function App() {
                 path='chat'
                 element={
                   <PrivateRoute>
-                    <SocketProvider>
+                    {/* <SocketProvider> */}
                       <Chat />
-                    </SocketProvider>
+                    {/* </SocketProvider> */}
                     
                   </PrivateRoute>
                 }
