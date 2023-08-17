@@ -6,7 +6,10 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import PageNotFound from './shared/PageNotFound';
 import { AuthProvider } from './providers/AuthProviders';
-import Dashboard from './pages/Dashboard';
+import PrivateRoute from './auth/PrivateRoute';
+import DashboardLayout from './Layout/DashboardLayout';
+import Weather from './pages/Dashboard/Weather';
+import ToDo from './pages/Dashboard/ToDo';
 
 function App() {
   return (
@@ -17,9 +20,23 @@ function App() {
           <Route path='register' element={<Register />} />
           
             <Route path='dashboard' element={
-              <AuthProvider>
-                <Dashboard />
-              </AuthProvider>} />
+              <PrivateRoute>
+                <DashboardLayout />
+              </PrivateRoute>}>
+              <Route path='' index element={
+                <PrivateRoute>
+                  <Weather />
+                </PrivateRoute>
+              } />
+              <Route
+                path='todo'
+                element={
+                  <PrivateRoute>
+                    <ToDo />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </Router>
