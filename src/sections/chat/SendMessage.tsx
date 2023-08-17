@@ -10,7 +10,9 @@ const SendMessage = ({sendMessage}: ISendMessage) => {
     const { register, handleSubmit,reset } = useForm<ISendMessageForm>()
 
     const send = (data: ISendMessageForm) => {
-        sendMessage(data.message);
+        if(data.message) {
+            sendMessage(data.message);
+        }
         reset();
     }
 
