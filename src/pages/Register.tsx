@@ -5,19 +5,36 @@ import { RiLoginCircleFill } from "react-icons/ri";
 import { auth } from "../firebaseSetup";
 import { useForm } from "react-hook-form";
 import { IRegister } from "../models/IRegister";
+import { useNavigate } from "react-router-dom";
+import { LocalStorageService } from "../services/LocalStorage";
+import { STORAGEENUM } from "../models/enums";
+import { NotifierService } from "../services/Notifier";
 
 const Register = () => {
 
+    const navigate = useNavigate();
     const { register, handleSubmit, getValues, formState: {
         errors
     } } = useForm<IRegister>()
 
     const registerSubmit = async (data: IRegister) => {
         try {
-            const firebaseRes = await auth.signInWithEmailAndPassword(data.email, data.password);
-            console.log(firebaseRes);
+            const firebaseUser = await auth.createUserWithEmailAndPassword(data.email, data.password);
+            const result: firebase.default.auth.IdTokenResult | any = await firebaseUser.user?.getIdTokenResult();
+            const { token, claims: {
+                user_id, email, exp
+            } } = result;
+            LocalStorageService.setItem(STORAGEENUM.token, token);
+            LocalStorageService.setItem(STORAGEENUM.user, JSON.stringify({email, exp, user_id}));
+            NotifierService.showSuccess({
+                message: 'Register Successfully',
+                duration: 1000
+            });
+            navigate('/dashboard');
         } catch (error) {
-            console.log(error);
+            NotifierService.showError({
+                message: 'Unable to register'
+            })
         }
     }
 
@@ -111,6 +128,9 @@ const Register = () => {
                     </div>
                     
                 </form>
+                <p className="text-white mb-10 cursor-pointer">
+                    Already Registered {" "} <span className="text-primary" onClick={() => navigate('/')}> Please Login </span>
+                </p>
             </div>
             
         </div>

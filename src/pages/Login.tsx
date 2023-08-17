@@ -4,9 +4,13 @@ import { RiLoginCircleFill } from "react-icons/ri";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ILogin } from "../models/ILogin";
 import { auth } from "../firebaseSetup";
+import { useNavigate } from "react-router-dom";
+import { LocalStorageService } from "../services/LocalStorage";
+import { STORAGEENUM } from "../models/enums";
+import { NotifierService } from "../services/Notifier";
 
 const Login = () => {
-
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -17,9 +21,21 @@ const Login = () => {
         try {
             console.log(data);
             const firebaseUser = await auth.signInWithEmailAndPassword(data.email, data.password);
-            console.log(firebaseUser.user?.getIdTokenResult())
+            const result: firebase.default.auth.IdTokenResult | any = await firebaseUser.user?.getIdTokenResult();
+            const { token, claims: {
+                user_id, email, exp
+            } } = result;
+            LocalStorageService.setItem(STORAGEENUM.token, token);
+            LocalStorageService.setItem(STORAGEENUM.user, JSON.stringify({email, exp, user_id}));
+            NotifierService.showSuccess({
+                message: 'Login Successfully',
+                duration: 1000
+            });
+            navigate('/dashboard');
         } catch (error) {
-            console.log(error)
+            NotifierService.showError({
+                message: 'Invalid email address or password'
+            })
         }
     }
 
@@ -88,6 +104,9 @@ const Login = () => {
                     </div>
                     
                 </form>
+                <p className="text-white mb-10 cursor-pointer">
+                    New User {" "} <span className="text-primary" onClick={() => navigate('/register')}> Register now </span>
+                </p>
             </div>
             
         </div>
