@@ -8,7 +8,7 @@ const Button = ({
 }: IButton) => {
     return (
         <>
-            <button type={type} className="bg-gray hover:bg-primary text-white font-bold py-2 px-4 rounded flex justify-center items-center mb-5 w-full">
+            <button type={type} className="bg-gray hover:bg-primary text-white font-bold py-2 px-4 rounded flex justify-center items-center w-full">
                 {icon}
                 <span className="ml-2">{label}</span>
             </button>

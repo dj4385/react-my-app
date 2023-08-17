@@ -10,6 +10,8 @@ import PrivateRoute from './auth/PrivateRoute';
 import DashboardLayout from './Layout/DashboardLayout';
 import Weather from './pages/Dashboard/Weather';
 import ToDo from './pages/Dashboard/ToDo';
+import Chat from './pages/Dashboard/Chat';
+import { SocketProvider } from './providers/SocketProvider';
 
 function App() {
   return (
@@ -33,6 +35,17 @@ function App() {
                 element={
                   <PrivateRoute>
                     <ToDo />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path='chat'
+                element={
+                  <PrivateRoute>
+                    <SocketProvider>
+                      <Chat />
+                    </SocketProvider>
+                    
                   </PrivateRoute>
                 }
               />
