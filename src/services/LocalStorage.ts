@@ -1,10 +1,6 @@
 import { STORAGEENUM } from "../models/enums";
 
 export class LocalStorageService {
-    constructor() {
-
-    }
-
     static getItem(key: STORAGEENUM) {
         return localStorage.getItem(key);
     }

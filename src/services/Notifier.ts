@@ -3,9 +3,6 @@ import "toastify-js/src/toastify.css"
 import { IToast } from '../models/IToast';
 
 export class NotifierService {
-    constructor() {
-
-    }
 
     static showSuccess(toast: IToast) {
         Toastify({
