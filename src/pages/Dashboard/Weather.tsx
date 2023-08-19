@@ -1,5 +1,11 @@
+import { useEffect } from "react";
+import ApiService from "../../services/Api";
 
 const Weather = () => {
+
+    useEffect(() => {
+        ApiService.getRealtimeWeather();
+    }, [])
 
     return (
         <>
