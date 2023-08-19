@@ -1,3 +1,10 @@
+ToDo Application:
+![Screenshot from 2023-08-18 12-29-51](https://github.com/dj4385/react-my-app/assets/30724457/d543de5a-30ea-423f-9bea-8b02d7962e45)
+
+Socket Chat application:
+![Screenshot from 2023-08-18 12-29-42](https://github.com/dj4385/react-my-app/assets/30724457/4ab41359-c3c0-462d-bdea-9e4daaeb7e52)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
