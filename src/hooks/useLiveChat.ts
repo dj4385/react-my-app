@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 import { SOCKETROOM, URLS } from "../constants";
 import { IMessage } from "../models/IMessage";
-import { STORAGEENUM } from "../models/enums";
-import { LocalStorageService } from "../services/LocalStorage";
+import { useAppSelector } from "../redux/store";
 
 const useLiveChat = () => {
 
     const [messages, setMessages] = useState<IMessage[]>([]);
     const socketRef: any = useRef();
+    const { user } = useAppSelector((state) => state.User_State);
     
     useEffect(() => {
         socketRef.current = socketIOClient(URLS.SOCKET_URL, {
@@ -26,8 +26,6 @@ const useLiveChat = () => {
 	
 
     function joinRoom() {
-        const userInfo: string | null = LocalStorageService.getItem(STORAGEENUM.user);
-        const user = userInfo ? JSON.parse(userInfo) : null;
         if(user && user.toString() !== '{}') {
             socketRef.current.emit('joinRoom', {
                 email: user.email,

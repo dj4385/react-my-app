@@ -8,9 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { LocalStorageService } from "../services/LocalStorage";
 import { STORAGEENUM } from "../models/enums";
 import { NotifierService } from "../services/Notifier";
+import { useAppDispatch } from "../redux/store";
+import { storeUser } from "../redux/reducer/User_State";
 
 const Login = () => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const {
         register,
         handleSubmit,
@@ -27,6 +30,7 @@ const Login = () => {
             } } = result;
             LocalStorageService.setItem(STORAGEENUM.token, token);
             LocalStorageService.setItem(STORAGEENUM.user, JSON.stringify({email, exp, user_id}));
+            dispatch(storeUser({email, exp, user_id}))
             NotifierService.showSuccess({
                 message: 'Login Successfully',
                 duration: 1000
