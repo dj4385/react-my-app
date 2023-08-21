@@ -1,19 +1,20 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { IRealtimeWeather, IUserIpInfo } from "../models/response";
 
 export default class ApiService {
 
-    static async getRealtimeWeather() {
+    static async getRealtimeWeather(loc: string) {
         try {
             const options: AxiosRequestConfig = {
                 method: 'get',
                 url: `${process.env.REACT_APP_WEATHER_API_URL}current.json`,
-                params: {q: '53.1,-0.13'},
+                params: {q: loc},
                 headers: { 
                     'X-RapidAPI-Host': process.env.REACT_APP_RAPIDAPI_HOST, 
                     'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY
                 }
             };
-            const response: AxiosResponse = await axios.request(options);
+            const response = await axios.request<IRealtimeWeather>(options);
             return response;
         } catch (error) {
             return error;
@@ -47,7 +48,7 @@ export default class ApiService {
                     "Authorization": `Bearer 9cd8657c8e1f2c`
                 }
             }
-            const response: AxiosResponse = await axios.request(config);
+            const response = await axios.request<IUserIpInfo>(config);
             return response;
         } catch (error) {
             return error;
