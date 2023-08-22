@@ -10,6 +10,7 @@ import { STORAGEENUM } from "../models/enums";
 import { NotifierService } from "../services/Notifier";
 import { useAppDispatch } from "../redux/store";
 import { storeUser } from "../redux/reducer/User_State";
+import { FacebookAuthProvider, getAuth } from "firebase/auth";
 
 const Login = () => {
     const navigate = useNavigate();

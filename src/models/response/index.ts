@@ -16,6 +16,39 @@ export interface IRealtimeWeather {
     location: ILocation
 }
 
+export interface IForcastWeather {
+    current: ICurrent;
+    location: ILocation;
+    forecast: IForcast;
+}
+
+export interface IForcast {
+    forecastday: IForcastDay[]
+}
+
+export interface IForcastDay {
+    astro: IAstro;
+    date: string;
+    date_epoch: number;
+    day: ICurrent;
+    hour: IHour[]
+}
+
+export interface IHour extends ICurrent {
+    time_epoch: number
+}
+
+export interface IAstro {
+    is_moon_up: number
+    is_sun_up: number
+    moon_illumination: string
+    moon_phase: string
+    moonrise: string
+    moonset: string
+    sunrise: string
+    sunset: string;
+}
+
 export interface ICurrent {
     last_updated_epoch: number,
     last_updated: string,
