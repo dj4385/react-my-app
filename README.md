@@ -1,3 +1,10 @@
+React App:
+Using the Node 18 version
+
+Weather App:
+![screencapture-localhost-3000-dashboard-2023-08-22-11_59_40](https://github.com/dj4385/react-my-app/assets/30724457/950f2bf7-8b7a-4baf-bde2-def26dd15d15)
+
+
 ToDo Application:
 ![Screenshot from 2023-08-18 12-29-51](https://github.com/dj4385/react-my-app/assets/30724457/d543de5a-30ea-423f-9bea-8b02d7962e45)
 
